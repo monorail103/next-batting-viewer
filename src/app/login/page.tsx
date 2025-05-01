@@ -79,7 +79,7 @@ export default function Login() {
           </div>
           {/* パスワードを忘れた方 */}
           <div>
-            <Link href="/forgot" className="text-sm text-indigo-600 hover:text-indigo-500 flex items-center space-x-1">
+            <Link href="/passwordreset" className="text-sm text-indigo-600 hover:text-indigo-500 flex items-center space-x-1">
               <span>パスワードを忘れた？</span>
             </Link>
           </div>

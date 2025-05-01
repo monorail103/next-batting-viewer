@@ -45,7 +45,15 @@ export default function Register() {
             });
             router.push("/");
         } catch (error) {
+            // ユーザー登録に失敗した場合のエラーハンドリング
+            if (typeof error === "object" && error !== null && "code" in error) {
+                if (error.code === "auth/email-already-in-use") {
+                    alert("このメールアドレスは既に登録されています。別のメールアドレスを使用してください。");
+                    return;
+                }
+            }
             console.error("Error registering user:", error);
+            alert("登録中にエラーが発生しました。もう一度お試しください。");
         }
     };
 
