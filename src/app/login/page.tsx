@@ -30,6 +30,7 @@ export default function Login() {
     } catch (error) {
       // ログイン失敗
       setError("メールアドレスまたはパスワードが違います。");
+      console.error("Login error:", error);
     }
   };
 
