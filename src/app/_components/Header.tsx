@@ -34,47 +34,71 @@ const Header: React.FC = () => {
     }, []);
 
     return (
-        <header className="relative w-full bg-gradient-to-r from-purple-600 to-blue-500 text-white shadow-lg">
+        <header className="relative w-full bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-800 text-white shadow-2xl border-b-4 border-indigo-700 z-50">
             <div className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
-                {/* Logo with animation */}
-                <Link href="/" className="text-2xl font-extrabold tracking-tight hover:scale-105 transition-transform duration-300">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
-                    Game App
+                {/* Logo with subtle neon effect */}
+                <Link
+                href="/"
+                className="text-3xl font-black tracking-widest select-none drop-shadow-[0_2px_12px_rgba(99,102,241,0.7)] hover:scale-105 transition-transform duration-300"
+                >
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-blue-200 to-white animate-gradient-x">
+                    <span className="text-indigo-400">Base</span>ball
                 </span>
                 </Link>
 
                 {/* Navigation Menu */}
-                <nav className="hidden md:flex items-center space-x-8">
-                <Link href="/about" className="nav-link hover:text-blue-200 transform hover:-translate-y-1 transition-all duration-300">
-                    About
+                <nav className="hidden md:flex items-center space-x-10 font-semibold">
+                <Link
+                    href="/about"
+                    className="relative group px-2 py-1 transition-all duration-200"
+                >
+                    <span className="group-hover:text-indigo-300">About</span>
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
                 </Link>
-                <Link href="/services" className="nav-link hover:text-blue-200 transform hover:-translate-y-1 transition-all duration-300">
-                    Services
+                <Link
+                    href="/services"
+                    className="relative group px-2 py-1 transition-all duration-200"
+                >
+                    <span className="group-hover:text-indigo-300">Services</span>
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
                 </Link>
-                <Link href="/contact" className="nav-link hover:text-blue-200 transform hover:-translate-y-1 transition-all duration-300">
-                    Contact
+                <Link
+                    href="/contact"
+                    className="relative group px-2 py-1 transition-all duration-200"
+                >
+                    <span className="group-hover:text-indigo-300">Contact</span>
+                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-indigo-400 group-hover:w-full transition-all duration-300"></span>
                 </Link>
                 {user ? (
                     <>
-                        <button
-                            onClick={handleSignOut}
-                            className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300"
-                        >
-                            ログアウト
-                        </button>
-                        <Link href="/profile" className="flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300">
-                            <span className="w-8 h-8 bg-white/30 rounded-full flex items-center justify-center">
-                            {username?.[0]?.toUpperCase()}
-                            </span>
-                        </Link>
+                    <button
+                        onClick={handleSignOut}
+                        className="px-5 py-2 rounded-full bg-gradient-to-r from-indigo-700 to-indigo-500 shadow-md hover:from-indigo-600 hover:to-indigo-400 border border-indigo-400 text-white font-bold tracking-wide transition-all duration-300"
+                    >
+                        ログアウト
+                    </button>
+                    <Link
+                        href="/profile"
+                        className="flex items-center space-x-2 px-4 py-2 rounded-full bg-gradient-to-r from-gray-800 to-indigo-900 border border-indigo-700 shadow-inner hover:shadow-indigo-400/30 transition-all duration-300"
+                    >
+                        <span className="w-9 h-9 bg-indigo-600/70 border-2 border-indigo-300 rounded-full flex items-center justify-center text-lg font-bold shadow-lg">
+                        {username?.[0]?.toUpperCase()}
+                        </span>
+                    </Link>
                     </>
                 ) : (
                     <>
-                    <Link href="/login" className="px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-all duration-300">
+                    <Link
+                        href="/login"
+                        className="px-6 py-2 rounded-full bg-gradient-to-r from-gray-700 to-indigo-800 border border-indigo-500 shadow hover:bg-indigo-700 hover:text-indigo-200 transition-all duration-300"
+                    >
                         ログイン
                     </Link>
-                    <Link href="/register" className="px-6 py-2 rounded-full bg-white text-purple-600 hover:bg-blue-100 transition-all duration-300">
+                    <Link
+                        href="/register"
+                        className="px-6 py-2 rounded-full bg-gradient-to-r from-indigo-400 to-indigo-600 text-gray-900 font-bold border border-indigo-200 shadow hover:from-indigo-300 hover:to-indigo-500 hover:text-white transition-all duration-300"
+                    >
                         新規登録
                     </Link>
                     </>
@@ -82,6 +106,8 @@ const Header: React.FC = () => {
                 </nav>
             </div>
             </div>
+            {/* Decorative bottom bar */}
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-blue-400 to-indigo-700 opacity-70 blur-[2px]" />
         </header>
     );
 };

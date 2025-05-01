@@ -55,7 +55,7 @@ export default function Register() {
                 <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Register</h1>
                 <form onSubmit={handleRegister} className="space-y-6">
                     <div>
-                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">登録名（公開されます。本名非推奨）</label>
                         <input
                             id="username"
                             type="text"

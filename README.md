@@ -1,36 +1,17 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Next-Batting-Viewer
+打撃成績を保存し、ランキング形式で保存し表示するアプリケーションです。
+## 技術スタック
+- Next.js
+- TypeScript
+- Firebase
+  - Firestore
+  - Authentication
+- Tailwind CSS
+# 機能
+- ユーザー登録・ログイン
+Firebase Authenticationを使用して、ユーザー登録・ログインを行います。ユーザー登録と同時に、Firebase Firestoreにユーザー情報を保存します。
+- 打撃成績の保存
+Firestore上に打撃成績を保存します。わかりやすいUIで、その日ごとに打撃成績を保存することができます。
+- 打撃成績の表示
+保存した打撃成績を表示します。
+各ユーザーの個人ページで表示できる他、ランキング形式で表示することもできます。

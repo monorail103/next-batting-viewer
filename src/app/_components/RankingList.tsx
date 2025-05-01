@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchRanking } from "@/lib/rankingService";
+import { fetchRanking } from "@/app/_utils/rankingService";
 
 interface User {
   id: string;
@@ -52,7 +52,72 @@ const RankingList: React.FC = () => {
             <span className="text-lg font-medium text-gray-700">
               {index + 1}. {user.username}
             </span>
-            <span className="text-lg font-bold text-indigo-600">{user.rbi} 打点</span>
+            <div className="flex gap-4 text-sm text-gray-600">
+              <span>試合: {user.games}</span>
+              <span>打席: {user.atbat}</span>
+              <span>安打: {user.single + user.double + user.triple + user.homurun}</span>
+              <span>二塁打: {user.double}</span>
+              <span>三塁打: {user.triple}</span>
+              <span>本塁打: {user.homurun}</span>
+              <span>打点: {user.rbi}</span>
+              <span>四球: {user.fourBall}</span>
+              <span>死球: {user.deadBall}</span>
+              <span>犠打: {user.sacrifice}</span>
+              <span>犠飛: {user.sacrificeFly}</span>
+              <span>盗塁: {user.stolenBase}</span>
+              <span>盗塁死: {user.caughtStealing}</span>
+              <span>三振: {user.k}</span>
+              <span>
+              打率: {(() => {
+                const ab = user.atbat - user.sacrifice - user.sacrificeFly;
+                const hits = user.single + user.double + user.triple + user.homurun;
+                return ab > 0 ? (hits / ab).toFixed(3) : "-";
+              })()}
+              </span>
+              <span>
+              出塁率: {(() => {
+                const hits = user.single + user.double + user.triple + user.homurun;
+                const pa = user.atbat + user.fourBall + user.deadBall + user.sacrificeFly;
+                const obp = pa > 0
+                ? ((hits + user.fourBall + user.deadBall) / pa).toFixed(3)
+                : "-";
+                return obp;
+              })()}
+              </span>
+              <span>
+              長打率: {(() => {
+                const ab = user.atbat - user.sacrifice - user.sacrificeFly;
+                const tb =
+                user.single +
+                user.double * 2 +
+                user.triple * 3 +
+                user.homurun * 4;
+                return ab > 0 ? (tb / ab).toFixed(3) : "-";
+              })()}
+              </span>
+              <span>
+              OPS: {(() => {
+                const ab = user.atbat - user.sacrifice - user.sacrificeFly;
+                const hits = user.single + user.double + user.triple + user.homurun;
+                const pa = user.atbat + user.fourBall + user.deadBall + user.sacrificeFly;
+                const obp =
+                pa > 0
+                  ? (hits + user.fourBall + user.deadBall) / pa
+                  : 0;
+                const slg =
+                ab > 0
+                  ? (
+                    (user.single +
+                    user.double * 2 +
+                    user.triple * 3 +
+                    user.homurun * 4) /
+                    ab
+                  )
+                  : 0;
+                return (obp + slg).toFixed(3);
+              })()}
+              </span>
+            </div>
           </li>
         ))}
       </ul>
