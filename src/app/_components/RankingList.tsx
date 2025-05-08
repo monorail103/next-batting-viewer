@@ -25,6 +25,8 @@ const RankingList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
 
+  // ランキングデータを取得するためのuseEffect
+  // コンポーネントがマウントされたときにランキングデータを取得
   useEffect(() => {
     const loadRanking = async () => {
       try {

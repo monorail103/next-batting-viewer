@@ -31,6 +31,7 @@ export const fetchRanking = async (limitCount: number = 10) => {
         const q = query(usersRef, orderBy("rbi", "desc"), limit(limitCount)); // 打点(rbi)で降順ソート
         const querySnapshot = await getDocs(q);
 
+        // Firestoreから取得したデータをUser型にマッピング
         const ranking: User[] = querySnapshot.docs.map((doc) => ({
             id: doc.id,
             ...(doc.data() as Omit<User, "id">), // FirestoreのデータをUser型にキャスト

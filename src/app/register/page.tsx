@@ -23,7 +23,7 @@ export default function Register() {
             /*
             username: ユーザー名
             email: メールアドレス
-            point: ゲーム内で使うポイント
+            以下の情報は打撃成績
             */
             // Firestoreにユーザー情報を保存
             await setDoc(doc(db, "users", user.uid), {

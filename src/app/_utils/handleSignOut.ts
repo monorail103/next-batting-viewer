@@ -1,3 +1,4 @@
+// ログアウト処理のユーティリティ関数
 import { auth } from "@/lib/firebaseConfig";
 import { signOut } from "firebase/auth";
 

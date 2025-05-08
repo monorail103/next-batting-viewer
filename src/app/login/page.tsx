@@ -1,3 +1,4 @@
+// ログインページ
 "use client";
 import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebaseConfig";

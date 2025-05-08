@@ -1,3 +1,4 @@
+// パスワード再設定ページ
 "use client";
 import { useState } from "react";
 import { auth } from "@/lib/firebaseConfig";
@@ -9,6 +10,8 @@ export default function ForgotPassword() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  // パスワード再設定メール送信処理
+  // Firebase AuthenticationのsendPasswordResetEmailを使用して、指定したメールアドレスにパスワード再設定用のメールを送信します。
   const handlePasswordReset = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage("");
