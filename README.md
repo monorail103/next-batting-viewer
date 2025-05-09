@@ -48,3 +48,6 @@
     npm run dev
     ```
 5. ブラウザで `http://localhost:3000` にアクセスします。
+
+## Vercelデプロイ
+`https://next-batting-viewer.vercel.app/` でデプロイされたアプリケーションを確認できます。

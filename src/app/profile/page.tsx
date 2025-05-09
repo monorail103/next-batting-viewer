@@ -173,7 +173,17 @@ export default function Page() {
             const userDocRef = doc(db, "users", user.uid); // ユーザーのドキュメントを参照
             // Firestoreに保存
             await setDoc(userDocRef, updatedUser, { merge: true });
-            console.log("Today's result saved successfully!");
+            
+            // ユーザー向けにメッセージを表示
+            alert("今日の結果を保存しました！");
+            // 全部クリア
+            setTodayResult({
+                date: new Date().toISOString().split("T")[0],
+                atbatList: [],
+                rbi: 0,
+                stolenBase: 0,
+                caughtStealing: 0,
+            });
         } catch (error) {
             console.error("Error saving today's result:", error);
         }
@@ -287,6 +297,17 @@ export default function Page() {
                         }
                     </div>
                 </div>
+            </div>
+            <div className="bg-white/80 rounded-3xl shadow-2xl p-10 w-full max-w-xl mb-10">
+                <h2 className="text-2xl font-bold text-purple-700 mb-6 text-center">
+                    データを修正
+                </h2>
+                <button
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-400 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform"
+                    onClick={() => router.push("/editstats")}
+                >
+                    編集する
+                </button>
             </div>
             <div className="bg-white/90 rounded-3xl shadow-xl p-8 w-full max-w-xl">
                 <h2 className="text-2xl font-bold text-pink-600 mb-6 text-center">
