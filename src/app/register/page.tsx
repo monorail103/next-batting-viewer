@@ -74,7 +74,7 @@ export default function Register() {
                         />
                     </div>
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email（学校アドレス推奨）</label>
                         <input
                             id="email"
                             type="email"
