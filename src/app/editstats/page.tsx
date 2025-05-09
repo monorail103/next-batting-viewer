@@ -1,6 +1,6 @@
 // 打撃成績を編集するページ
 "use client";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebaseConfig";
 import { db } from "@/lib/firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
