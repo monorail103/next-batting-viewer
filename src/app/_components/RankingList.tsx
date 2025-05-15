@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "@/lib/firebaseConfig";
-import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
 
 interface User {
   id: string;
@@ -73,8 +73,6 @@ const RankingList: React.FC = () => {
   // 長打率を計算する関数
   const calculateSluggingPercentage = (user: User) => {
     const ab = user.atbat - user.sacrifice - user.sacrificeFly;
-    const hits = user.single + user.double + user.triple + user.homurun;
-    const pa = user.atbat + user.fourBall + user.deadBall + user.sacrificeFly;
     const slg = ab > 0 ? (user.single + user.double * 2 + user.triple * 3 + user.homurun * 4) / ab : 0;
     return slg;
   }
