@@ -84,6 +84,25 @@ const RankingList: React.FC = () => {
     return obp + slg;
   }
 
+  // ランキングの並べ替えをいじるための関数
+  const sortRanking = (field: keyof User) => {
+    const sortedRanking = [...ranking].sort((a, b) => Number(b[field]) - Number(a[field]));
+    setRanking(sortedRanking);
+  }
+
+  // ランキングの並べ替えをいじるための関数
+  const sortRankingByCalculatedField = (field: "battingAverage" | "OPS") => {
+    const sortedRanking = [...ranking].sort((a, b) => {
+      if (field === "battingAverage") {
+        return calculateBattingAverage(b) - calculateBattingAverage(a); // 打率で降順ソート
+      } else if (field === "OPS") {
+        return calculateOPS(b) - calculateOPS(a); // OPSで降順ソート
+      }
+      return 0;
+    });
+    setRanking(sortedRanking);
+  };
+
 
   if (loading) {
     return <p className="text-center text-gray-200">ランキングを読み込んでいます...</p>;
@@ -92,6 +111,38 @@ const RankingList: React.FC = () => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">ランキング</h2>
+      <div className="flex justify-center mb-4">
+        <button
+          onClick={() => sortRanking("rbi")}
+          className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+        >
+          打点でソート
+        </button>
+        <button
+          onClick={() => sortRanking("fourBall")}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          四球でソート
+        </button>
+        <button
+          onClick={() => sortRanking("homurun")}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          本塁打でソート
+        </button>
+        <button
+          onClick={() => sortRankingByCalculatedField("battingAverage")}
+          className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
+        >
+          打率でソート
+        </button>
+        <button
+          onClick={() => sortRankingByCalculatedField("OPS")}
+          className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
+        >
+          OPSでソート
+        </button>
+      </div>
       <ul className="space-y-4">
         {ranking.map((user, index) => (
           <li key={user.id} className="border-b pb-4">
@@ -108,15 +159,9 @@ const RankingList: React.FC = () => {
             </div>
             <div className="mt-2">
               <div className="flex gap-4 text-sm text-gray-800 font-semibold">
-                <span>打率: {(() => {
-                  return calculateBattingAverage(user);
-                })()}</span>
-                <span>出塁率: {(() => {
-                  return calculateOnBasePercentage(user);
-                })()}</span>
-                <span>OPS: {(() => {
-                  return calculateOPS(user);
-                })()}</span>
+                <span>打率: {calculateBattingAverage(user).toFixed(3)}</span>
+                <span>出塁率: {calculateOnBasePercentage(user).toFixed(3)}</span>
+                <span>OPS: {calculateOPS(user).toFixed(3)}</span>
               </div>
               {expanded[user.id] && (
                 <div className="mt-2 text-sm text-gray-600 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1">
