@@ -159,9 +159,11 @@ const RankingList: React.FC = () => {
             </div>
             <div className="mt-2">
               <div className="flex gap-4 text-sm text-gray-800 font-semibold">
-                <span>打率: {calculateBattingAverage(user).toFixed(3)}</span>
+                <span>打率: {calculateBattingAverage(user).toFixed(3)}（{user.atbat - user.sacrifice - user.sacrificeFly}/{user.single + user.double + user.triple + user.homurun}）</span>
                 <span>出塁率: {calculateOnBasePercentage(user).toFixed(3)}</span>
                 <span>OPS: {calculateOPS(user).toFixed(3)}</span>
+                <span>本塁打: {user.homurun}</span>
+                <span>打点: {user.rbi}</span>
               </div>
               {expanded[user.id] && (
                 <div className="mt-2 text-sm text-gray-600 grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1">

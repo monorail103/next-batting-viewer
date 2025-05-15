@@ -173,7 +173,7 @@ export default function Page() {
             const userDocRef = doc(db, "users", user.uid); // ユーザーのドキュメントを参照
             // Firestoreに保存
             await setDoc(userDocRef, updatedUser, { merge: true });
-            
+
             // ユーザー向けにメッセージを表示
             alert("今日の結果を保存しました！");
             // 全部クリア
@@ -316,8 +316,11 @@ export default function Page() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                     {/* 打席ごとの入力欄を動的に追加・削除 */}
                     {todayResult.atbatList?.map((atbat, idx) => (
-                        <div key={idx} className="flex items-center gap-2">
-                            <label className="mb-1 text-gray-600 font-medium">
+                        <div
+                            key={idx}
+                            className="flex flex-wrap items-center gap-2 sm:gap-4"
+                        >
+                            <label className="mb-1 text-gray-600 font-medium w-full sm:w-auto">
                                 第{idx + 1}打席
                             </label>
                             <select
@@ -328,7 +331,7 @@ export default function Page() {
                                     newList[idx] = { ...newList[idx], result: Number(e.target.value) };
                                     setTodayResult({ ...todayResult, atbatList: newList });
                                 }}
-                                className="rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-300 transition"
+                                className="w-full sm:w-auto flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-300 transition"
                             >
                                 <option value={0}>選択してください</option>
                                 <option value={1}>凡打</option>
@@ -352,7 +355,7 @@ export default function Page() {
                                     newList[idx] = { ...newList[idx], notes: e.target.value };
                                     setTodayResult({ ...todayResult, atbatList: newList });
                                 }}
-                                className="rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-300 transition"
+                                className="w-full sm:w-auto flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-300 transition"
                             />
                             <button
                                 type="button"
@@ -367,6 +370,19 @@ export default function Page() {
                             </button>
                         </div>
                     ))}
+                    {/* 打席を追加する */}
+                    <button
+                        type="button"
+                        className="mt-2 mb-4 px-4 py-2 bg-blue-200 rounded-lg text-blue-700 font-semibold hover:bg-blue-300 transition"
+                        onClick={() => {
+                            setTodayResult({
+                                ...todayResult,
+                                atbatList: [...(todayResult.atbatList || []), { result: 0 }],
+                            });
+                        }}
+                    >
+                        打席を追加
+                    </button>
                     {/* 盗塁、盗塁死、打点の入力欄 */}
                     <div className="flex items-center gap-2">
                         <label className="mb-1 text-gray-600 font-medium">
@@ -402,19 +418,6 @@ export default function Page() {
                         />
                     </div>
                     <button
-                        type="button"
-                        className="mt-2 mb-4 px-4 py-2 bg-blue-200 rounded-lg text-blue-700 font-semibold hover:bg-blue-300 transition"
-                        onClick={() => {
-                            setTodayResult({
-                                ...todayResult,
-                                atbatList: [...(todayResult.atbatList || []), { result: 0 }],
-                            });
-                        }}
-                    >
-                        打席を追加
-                    </button>
-
-                    <button
                         type="submit"
                         className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-400 text-white font-bold text-lg shadow-lg hover:scale-105 transition-transform"
                     >
@@ -422,6 +425,6 @@ export default function Page() {
                     </button>
                 </form>
             </div>
-        </div>
+        </div >
     );
 }
