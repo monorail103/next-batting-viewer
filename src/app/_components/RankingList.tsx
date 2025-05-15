@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { fetchRanking } from "@/app/_utils/rankingService";
+import { db } from "@/lib/firebaseConfig";
+import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 
 interface User {
   id: string;
@@ -30,8 +31,15 @@ const RankingList: React.FC = () => {
   useEffect(() => {
     const loadRanking = async () => {
       try {
-        const data = await fetchRanking(10); // 上位10件を取得
-        setRanking(data);
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, orderBy("rbi", "desc")); // 打点(rbi)で降順ソート
+        const querySnapshot = await getDocs(q);
+        // Firestoreから取得したデータをUser型にマッピング
+        const ranking: User[] = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...(doc.data() as Omit<User, "id">), // FirestoreのデータをUser型にキャスト
+        }));
+        setRanking(ranking);
       } catch (error) {
         console.error("ランキングの取得に失敗しました:", error);
       } finally {
@@ -46,6 +54,38 @@ const RankingList: React.FC = () => {
   const toggleExpand = (id: string) => {
     setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
   };
+
+  // 打率を計算する関数
+  const calculateBattingAverage = (user: User) => {
+    const ab = user.atbat - user.sacrifice - user.sacrificeFly;
+    const hits = user.single + user.double + user.triple + user.homurun;
+    return ab > 0 ? hits / ab : 0;
+  };
+
+  // 出塁率を計算する関数
+  const calculateOnBasePercentage = (user: User) => {
+    const hits = user.single + user.double + user.triple + user.homurun;
+    const pa = user.atbat + user.fourBall + user.deadBall + user.sacrificeFly;
+    const obp = pa > 0 ? (hits + user.fourBall + user.deadBall) / pa : 0;
+    return obp;
+  };
+
+  // 長打率を計算する関数
+  const calculateSluggingPercentage = (user: User) => {
+    const ab = user.atbat - user.sacrifice - user.sacrificeFly;
+    const hits = user.single + user.double + user.triple + user.homurun;
+    const pa = user.atbat + user.fourBall + user.deadBall + user.sacrificeFly;
+    const slg = ab > 0 ? (user.single + user.double * 2 + user.triple * 3 + user.homurun * 4) / ab : 0;
+    return slg;
+  }
+
+  // OPSを計算する関数
+  const calculateOPS = (user: User) => {
+    const obp = calculateOnBasePercentage(user);
+    const slg = calculateSluggingPercentage(user);
+    return obp + slg;
+  }
+
 
   if (loading) {
     return <p className="text-center text-gray-200">ランキングを読み込んでいます...</p>;
@@ -71,36 +111,13 @@ const RankingList: React.FC = () => {
             <div className="mt-2">
               <div className="flex gap-4 text-sm text-gray-800 font-semibold">
                 <span>打率: {(() => {
-                  const ab = user.atbat - user.sacrifice - user.sacrificeFly;
-                  const hits = user.single + user.double + user.triple + user.homurun;
-                  return ab > 0 ? (hits / ab).toFixed(3) : "-";
+                  return calculateBattingAverage(user);
                 })()}</span>
                 <span>出塁率: {(() => {
-                  const hits = user.single + user.double + user.triple + user.homurun;
-                  const pa = user.atbat + user.fourBall + user.deadBall + user.sacrificeFly;
-                  return pa > 0
-                    ? ((hits + user.fourBall + user.deadBall) / pa).toFixed(3)
-                    : "-";
+                  return calculateOnBasePercentage(user);
                 })()}</span>
                 <span>OPS: {(() => {
-                  const ab = user.atbat - user.sacrifice - user.sacrificeFly;
-                  const hits = user.single + user.double + user.triple + user.homurun;
-                  const pa = user.atbat + user.fourBall + user.deadBall + user.sacrificeFly;
-                  const obp =
-                    pa > 0
-                      ? (hits + user.fourBall + user.deadBall) / pa
-                      : 0;
-                  const slg =
-                    ab > 0
-                      ? (
-                          (user.single +
-                            user.double * 2 +
-                            user.triple * 3 +
-                            user.homurun * 4) /
-                          ab
-                        )
-                      : 0;
-                  return (obp + slg).toFixed(3);
+                  return calculateOPS(user);
                 })()}</span>
               </div>
               {expanded[user.id] && (

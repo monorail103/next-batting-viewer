@@ -25,10 +25,10 @@ interface User {
  * @param limitCount ランキングの上位何件を取得するか
  * @returns ランキングデータ
  */
-export const fetchRanking = async (limitCount: number = 10) => {
+export const fetchRanking = async (limitCount: number = 100, orderByField: keyof User = "rbi") => {
     try {
         const usersRef = collection(db, "users");
-        const q = query(usersRef, orderBy("rbi", "desc"), limit(limitCount)); // 打点(rbi)で降順ソート
+        const q = query(usersRef, orderBy(orderByField, "desc"), limit(limitCount)); // 打点(rbi)で降順ソート
         const querySnapshot = await getDocs(q);
 
         // Firestoreから取得したデータをUser型にマッピング

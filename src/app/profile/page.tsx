@@ -341,6 +341,7 @@ export default function Page() {
                                 <option value={8}>犠打</option>
                                 <option value={9}>犠飛</option>
                                 <option value={10}>三振</option>
+                                <option value={11}>エラーなどによる出塁</option>
                             </select>
                             <input
                                 type="text"
