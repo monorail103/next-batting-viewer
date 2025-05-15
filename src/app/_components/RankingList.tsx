@@ -111,36 +111,36 @@ const RankingList: React.FC = () => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">ランキング</h2>
-      <div className="flex justify-center mb-4">
+      <div className="flex flex-wrap gap-2 justify-center mb-4">
         <button
           onClick={() => sortRanking("rbi")}
-          className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+          className="px-3 py-1 rounded bg-blue-500 text-white text-sm font-semibold transition active:scale-95 hover:bg-blue-600 focus:outline-none"
         >
-          打点でソート
-        </button>
-        <button
-          onClick={() => sortRanking("fourBall")}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          四球でソート
+          打点順
         </button>
         <button
           onClick={() => sortRanking("homurun")}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="px-3 py-1 rounded bg-red-500 text-white text-sm font-semibold transition active:scale-95 hover:bg-red-600 focus:outline-none"
         >
-          本塁打でソート
+          本塁打順
+        </button>
+        <button
+          onClick={() => sortRanking("atbat")}
+          className="px-3 py-1 rounded bg-yellow-500 text-white text-sm font-semibold transition active:scale-95 hover:bg-yellow-600 focus:outline-none"
+        >
+          打席順
         </button>
         <button
           onClick={() => sortRankingByCalculatedField("battingAverage")}
-          className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
+          className="px-3 py-1 rounded bg-green-500 text-white text-sm font-semibold transition active:scale-95 hover:bg-green-600 focus:outline-none"
         >
-          打率でソート
+          打率順
         </button>
         <button
           onClick={() => sortRankingByCalculatedField("OPS")}
-          className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
+          className="px-3 py-1 rounded bg-purple-500 text-white text-sm font-semibold transition active:scale-95 hover:bg-purple-600 focus:outline-none"
         >
-          OPSでソート
+          OPS順
         </button>
       </div>
       <ul className="space-y-4">
