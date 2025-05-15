@@ -367,6 +367,40 @@ export default function Page() {
                             </button>
                         </div>
                     ))}
+                    {/* 盗塁、盗塁死、打点の入力欄 */}
+                    <div className="flex items-center gap-2">
+                        <label className="mb-1 text-gray-600 font-medium">
+                            盗塁
+                        </label>
+                        <input
+                            type="number"
+                            value={todayResult.stolenBase}
+                            onChange={(e) => setTodayResult({ ...todayResult, stolenBase: Number(e.target.value) })}
+                            className="rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-300 transition"
+                        />
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <label className="mb-1 text-gray-600 font-medium">
+                            盗塁死
+                        </label>
+                        <input
+                            type="number"
+                            value={todayResult.caughtStealing}
+                            onChange={(e) => setTodayResult({ ...todayResult, caughtStealing: Number(e.target.value) })}
+                            className="rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-300 transition"
+                        />
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <label className="mb-1 text-gray-600 font-medium">
+                            打点
+                        </label>
+                        <input
+                            type="number"
+                            value={todayResult.rbi}
+                            onChange={(e) => setTodayResult({ ...todayResult, rbi: Number(e.target.value) })}
+                            className="rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-300 transition"
+                        />
+                    </div>
                     <button
                         type="button"
                         className="mt-2 mb-4 px-4 py-2 bg-blue-200 rounded-lg text-blue-700 font-semibold hover:bg-blue-300 transition"
