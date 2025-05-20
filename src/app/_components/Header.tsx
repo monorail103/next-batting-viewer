@@ -43,7 +43,7 @@ const Header: React.FC = () => {
                         className="text-3xl font-black tracking-widest select-none drop-shadow-[0_2px_12px_rgba(99,102,241,0.7)] hover:scale-105 transition-transform duration-300"
                     >
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-blue-200 to-white animate-gradient-x">
-                            <span className="text-indigo-400">Base</span>ball
+                            <span className="text-4xl">Batting</span> Ranking
                         </span>
                     </Link>
 

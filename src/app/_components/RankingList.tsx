@@ -57,7 +57,7 @@ const RankingList: React.FC = () => {
 
   // 打率を計算する関数
   const calculateBattingAverage = (user: User) => {
-    const ab = user.atbat - user.sacrifice - user.sacrificeFly;
+    const ab = user.atbat - user.sacrifice - user.sacrificeFly - user.fourBall - user.deadBall;
     const hits = user.single + user.double + user.triple + user.homurun;
     return ab > 0 ? hits / ab : 0;
   };
@@ -147,8 +147,35 @@ const RankingList: React.FC = () => {
         {ranking.map((user, index) => (
           <li key={user.id} className="border-b pb-4">
             <div className="flex justify-between items-center">
-              <span className="text-lg font-medium text-gray-700">
-                {index + 1}. {user.username}
+              <span className="flex items-center">
+                {index === 0 && (
+                  <span className="flex items-center relative">
+                  <span className="text-3xl text-yellow-500 mr-1 animate-pulse transform hover:scale-125 transition-transform">👑</span>
+                  <span className="ml-1 font-extrabold text-xl text-yellow-600 shadow-lg">{index + 1}. {user.username}</span>
+                  <span className="absolute -inset-1 bg-yellow-300 opacity-30 rounded-lg blur-sm animate-pulse"></span>
+                  </span>
+                )}
+                {index === 1 && (
+                  <span className="flex items-center relative">
+                  <span className="text-2xl text-gray-400 mr-1 animate-bounce">🥈</span>
+                  <span className="ml-1 font-bold text-lg text-gray-600">{index + 1}. {user.username}</span>
+                  <span className="absolute -inset-1 bg-gray-300 opacity-20 rounded-lg blur-sm"></span>
+                  </span>
+                )}
+                {index === 2 && (
+                  <span className="flex items-center relative">
+                  <span className="text-2xl text-amber-700 mr-1 animate-bounce">🥉</span>
+                  <span className="ml-1 font-bold text-amber-800">{index + 1}. {user.username}</span>
+                  <span className="absolute -inset-1 bg-amber-700 opacity-20 rounded-lg blur-sm"></span>
+                  </span>
+                )}
+                {index > 2 && (
+                  <span className="flex items-center">
+                  <span className="text-sm font-semibold text-gray-600 mr-2">#{index + 1}</span>
+                  <span className="text-gray-800">{user.username}</span>
+                  </span>
+                )}
+                
               </span>
               <button
                 onClick={() => toggleExpand(user.id)}
@@ -159,7 +186,7 @@ const RankingList: React.FC = () => {
             </div>
             <div className="mt-2">
               <div className="flex gap-4 text-sm text-gray-800 font-semibold">
-                <span>打率: {calculateBattingAverage(user).toFixed(3)}（{user.atbat - user.sacrifice - user.sacrificeFly}/{user.single + user.double + user.triple + user.homurun}）</span>
+                <span>打率: {calculateBattingAverage(user).toFixed(3)}（{user.atbat - user.sacrifice - user.sacrificeFly - user.fourBall - user.deadBall}/{user.single + user.double + user.triple + user.homurun}）</span>
                 <span>出塁率: {calculateOnBasePercentage(user).toFixed(3)}</span>
                 <span>OPS: {calculateOPS(user).toFixed(3)}</span>
                 <span>本塁打: {user.homurun}</span>
